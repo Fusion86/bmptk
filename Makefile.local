@@ -4,26 +4,26 @@
 #
 # Local definitions for the bmptk makefile
 #
-# If you want to change the definitions below to match 
+# If you want to change the definitions below to match
 # the situation on your PC:
 # COPY THIS FILE TO Makefile.custom AND CHANGE THAT FILE.
 # This way you can overwrite the bmptk files without erasing
 # your changes when you download a new bmptk over the old tree.
 #
 # Distributed under the Boost Software License, Version 1.0.
-# (See accompanying file LICENSE_1_0.txt or copy at 
+# (See accompanying file LICENSE_1_0.txt or copy at
 # http://www.boost.org/LICENSE_1_0.txt)
-# 
+#
 #############################################################################
-                                                                 
+
 ifeq ($(OS),Windows_NT)
- 
+
    # WPF32 is the windows directory for 32-bit applications
-   
+
    # depends on the compiler ...
    ARM-EABI        ?= arm-none-eabi
    #ARM-EABI        ?= arm-eabi
-   
+
    # 7za command line
    # used (only) to create a bmptk zip file - no longer used
    # 7za             ?= "$(WPF32)/7-Zip/7za"
@@ -48,26 +48,26 @@ ifeq ($(OS),Windows_NT)
    GCC-MSP430      ?= C:/ti/ccsv6/tools/compiler/gcc_msp430_4.9.14r1_98
    STM32LU         ?= $(WPF32)/STMicroelectronics/STM32 ST-LINK Utility
    MSP430FLASHER   ?= C:/ti/MSP430Flasher_1.3.3/MSP430Flasher
-   
+
    # esp8266 stuff
    ESPRESSIF       ?= C:/Espressif
    ESP-SDK         ?= $(ESPRESSIF)/ESP8266_SDK
    GCC-XTENSA      ?= $(ESPRESSIF)/xtensa-lx106-elf-separate
    ESP-TOOL        ?= $(ESPRESSIF)/xtensa-lx106-elf/bin/esptool
    ESP-LOADER      ?= $(ESPRESSIF)/utils/esptool.exe
-   
+
    # serial port defaults
    SERIAL_PORT     ?= COM4
-   SERIAL_BAUDRATE ?= 38400 
-   CONSOLE_BAUDRATE ?= 38400 
-   
+   SERIAL_BAUDRATE ?= 38400
+   CONSOLE_BAUDRATE ?= 38400
+
    # python interpreter
    ifneq ($(wildcard C:/Python36/Python.exe),)
       PYTHON          ?= C:/Python36/Python.exe
    else
       PYTHON         ?= Python.exe
    endif
-   
+
 else
 
    ARM-EABI        ?= arm-none-eabi
@@ -75,15 +75,15 @@ else
    GCC-AVR         ?= avr-
 
    # on Linux the path can in most cases be omitted
-   GCC-ARM         ?= 
+   GCC-ARM         ?=
    GCC-AVR         ?=
-   GCC-MSP430      ?= 
-   
+   GCC-MSP430      ?=
+
    # serial port defaults
-   SERIAL_PORT_DUE      := /dev/ttyACM0
-   SERIAL_PORT_UNO      := /dev/ttyUSB0
-   
-   SERIAL_PORT := $(shell ls /dev/tty???0)
+   SERIAL_PORT_DUE      ?= /dev/ttyACM0
+   SERIAL_PORT_UNO      ?= /dev/ttyUSB0
+
+   SERIAL_PORT ?= $(shell ls /dev/tty???0)
 
 #   ifeq ($(TARGET),arduino_due)
 #      SERIAL_PORT          := $(SERIAL_PORT_DUE)
@@ -92,7 +92,7 @@ else
 #   endif
 
    SERIAL_BAUDRATE      ?= 38400
-   CONSOLE_BAUDRATE     ?= 38400 
+   CONSOLE_BAUDRATE     ?= 38400
 
    PYTHON ?= python3
 
