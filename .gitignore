@@ -1,4 +1,4 @@
-makefile.custom
+Makefile.custom
 *.o
 lpc21isp*.exe
 Makefile.win
