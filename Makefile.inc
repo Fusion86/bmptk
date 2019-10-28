@@ -124,6 +124,7 @@ else
    # installed separately
    AVRDUDE       ?= $(SUDO) avrdude
    AVRDUDEC      ?= "$(BMPTK)/tools/avrdude/avrdude.conf"
+   STM32_CLI     ?= st-flash
 
    ifeq ($(UNAME_S),Linux)
       LPC21ISP       ?= $(SUDO) $(BMPTK)/tools/lpc21isp_197/lpc21isp_hr_linux.exe
@@ -779,9 +780,14 @@ define STM32
    ROM_START      ?= 0x08000000
    RAM_START      ?= 0x20000000
    INCLUDES       += -I$(BMPTK)/targets/cortex/stm32
-   RESULTS         += $(HEX)
-   RUN            ?= $(STM32_CLI) -P $(HEX) -Rst
+   RESULTS        += $(HEX)
    RUN_PAUSE      ?= $(PAUSE)
+
+   ifeq ($(OS),Windows_NT)
+      RUN         ?= $(STM32_CLI) -P $(HEX) -Rst
+   else
+      RUN         ?= $(STM32_CLI) --format ihex write $(HEX)
+   endif
 endef
 
 ifeq ($(CHIP),stm32f051r8)
